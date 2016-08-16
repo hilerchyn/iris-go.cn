@@ -53,4 +53,8 @@ func (app *App) website(){
 	app.Framework.Get("/", func(c *iris.Context){
 		c.Render("site/home.html", nil, iris.RenderOptions{})
 	})
+
+	app.Framework.Get("/about", func(c *iris.Context){
+		c.Render("site/about.html", nil, iris.RenderOptions{})
+	})
 }
