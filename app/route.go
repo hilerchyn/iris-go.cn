@@ -8,10 +8,13 @@ import (
 
 func (app *App) SetRoute(){
 
+	// set website routes
+	app.website()
+
 	app.Framework.Get("/gitbook", func(c *iris.Context){
 
-		content := c.TemplateString("README.md", nil, iris.RenderOptions{"gzip":false})
-		c.Render("content.html", struct{Content interface{}}{Content:template.HTML(content)}, iris.RenderOptions{"gzip":false})
+		tableContent := c.TemplateString("README.md", nil, iris.RenderOptions{"gzip":false})
+		c.Render("content.html", MDContent{Content:template.HTML(tableContent),TableContent:template.HTML("")}, iris.RenderOptions{"gzip":false})
 
 	})
 
@@ -19,7 +22,8 @@ func (app *App) SetRoute(){
 	app.Framework.Get("/gitbook/:markdown", func(c *iris.Context){
 		file := c.Param("markdown")
 
-		path := app.DefaultConfig.Markdown + file
+		path := app.DefaultConfig.Markdown +"/"+ file
+
 		if !utils.DirectoryExists(path){
 			c.RedirectTo("/gitbook")
 			return
@@ -29,9 +33,24 @@ func (app *App) SetRoute(){
 		if file[len(file)-4:] == ".png"{
 			c.ServeFile(path, true)
 		} else {
+			tableContent := c.TemplateString("README.md", nil, iris.RenderOptions{"gzip":false})
 			content := c.TemplateString(file, nil, iris.RenderOptions{"gzip":false})
-			c.Render("content.html", struct{Content interface{}}{Content:template.HTML(content)}, iris.RenderOptions{"gzip":false})
+			c.Render("content.html",
+				MDContent{Content:template.HTML(content),
+					TableContent:template.HTML(tableContent),
+				},
+				iris.RenderOptions{"gzip":false})
 		}
 
+	})
+}
+
+
+func (app *App) website(){
+
+	app.Framework.StaticServe("./static", "/static")
+
+	app.Framework.Get("/", func(c *iris.Context){
+		c.Render("site/home.html", nil, iris.RenderOptions{})
 	})
 }
