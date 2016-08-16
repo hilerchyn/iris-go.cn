@@ -16,11 +16,11 @@ type Config struct {
 	HtmlLayout string
 }
 
-func New()*App{
+func New(configFile string)*App{
 
 
 	// get config
-	byteContent, err := ioutil.ReadFile("/Users/monstarlab/work/work/golang/gopath/src/github.com/hilerchyn/iris-go.cn/config.json")
+	byteContent, err := ioutil.ReadFile(configFile)
 	if err != nil {
 		panic(err.Error())
 	}
