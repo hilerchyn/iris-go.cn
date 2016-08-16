@@ -5,6 +5,8 @@ import(
   "github.com/kataras/iris/utils"
   "github.com/iris-contrib/template/markdown"
   "github.com/iris-contrib/middleware/recovery"
+
+  customHeader "github.com/hilerchyn/iris-go.cn/middleware/header"
 )
 
 func main(){
@@ -14,6 +16,8 @@ func main(){
 
   // use recovery middleware
   iris.Use(recovery.New(iris.Logger))
+
+  iris.Use(&customHeader.CustomHeader{})
 
   iris.Get("/", func(c *iris.Context){
     c.Render("README.md", struct{}{}, iris.RenderOptions{"gzip":true})
