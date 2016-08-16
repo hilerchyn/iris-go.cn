@@ -8,7 +8,7 @@ import (
 
 func (app *App) SetRoute(){
 
-	app.Framework.Get("/", func(c *iris.Context){
+	app.Framework.Get("/gitbook", func(c *iris.Context){
 
 		content := c.TemplateString("README.md", nil, iris.RenderOptions{"gzip":false})
 		c.Render("content.html", struct{Content interface{}}{Content:template.HTML(content)}, iris.RenderOptions{"gzip":false})
@@ -16,12 +16,12 @@ func (app *App) SetRoute(){
 	})
 
 
-	app.Framework.Get("/:markdown", func(c *iris.Context){
+	app.Framework.Get("/gitbook/:markdown", func(c *iris.Context){
 		file := c.Param("markdown")
 
-		path := "../iris-gitbook/" + file
+		path := app.DefaultConfig.Markdown + file
 		if !utils.DirectoryExists(path){
-			c.RedirectTo("/")
+			c.RedirectTo("/gitbook")
 			return
 		}
 

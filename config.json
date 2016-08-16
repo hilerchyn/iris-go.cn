@@ -2,7 +2,7 @@
   "Server": "iris-go.cn",
   "Version": "0.0.1",
   "Host": "0.0.0.0",
-  "Port": "8081",
+  "Port": "8080",
   "Markdown": "../iris-gitbook",
   "Html": "./templates",
   "HtmlLayout": "layout.html"
