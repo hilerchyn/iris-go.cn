@@ -3,10 +3,14 @@ package header
 import "github.com/kataras/iris"
 
 type CustomHeader struct {
-
+	Name string
 }
 
 func (ch *CustomHeader) Serve(c *iris.Context){
-	c.Response.Header.Set("Server", "iris-go.cn")
+
+	if ch.Name == "" {
+		ch.Name = "HilerChen"
+	}
+	c.Response.Header.Set("Server", ch.Name)
 	c.Next()
 }
