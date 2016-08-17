@@ -4,6 +4,7 @@ import (
 	"github.com/kataras/iris"
 	"encoding/json"
 	"io/ioutil"
+	"github.com/kataras/iris/config"
 )
 
 type Config struct {
@@ -35,8 +36,11 @@ func New(configFile string)*App{
 		panic(err.Error())
 	}
 
+	// disable banner
+	config := config.Iris{DisableBanner:true}
+
 	// set Iris Framework
-	app.Framework = iris.New()
+	app.Framework = iris.New(config)
 
 	return app
 }
