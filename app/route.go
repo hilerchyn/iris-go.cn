@@ -8,6 +8,8 @@ import (
 
 func (app *App) SetRoute(){
 
+	app.subdomain()
+
 	// set website routes
 	app.website()
 
@@ -45,7 +47,9 @@ func (app *App) SetRoute(){
 	})
 }
 
-
+/**
+ * set website pages
+ */
 func (app *App) website(){
 
 	app.Framework.StaticServe("./static", "/static")
@@ -57,4 +61,18 @@ func (app *App) website(){
 	app.Framework.Get("/about", func(c *iris.Context){
 		c.Render("site/about.html", nil, iris.RenderOptions{})
 	})
+}
+
+/**
+ * remove subdomain
+ */
+func (app *App) subdomain(){
+
+	subdomain := app.Framework.Party("*.")
+	{
+		subdomain.Get("/:path", func(c *iris.Context) {
+			c.RedirectTo("/")
+			return
+		})
+	}
 }
