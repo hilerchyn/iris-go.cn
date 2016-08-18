@@ -16,4 +16,17 @@ $(document).ready(function(){
 
     $("img").css("width", "100%");
 
+    $(".gitbook a").each(function(){
+        var href = $(this).attr("href");
+
+        href.substring(href.length -3);
+
+        if(href.substring(href.length -3)==".md"){
+            $(this).attr("href", "/gitbook/"+href);
+        }
+        else{
+            $(this).attr("target", "_blank");
+        }
+    });
+
 })
