@@ -1,7 +1,7 @@
 {
   "Server": "iris-go.cn",
   "Version": "0.0.1",
-  "Host": "0.0.0.0",
+  "Host": "iris-go.cn",
   "Port": "80",
   "Markdown": "../iris-gitbook",
   "Html": "./templates",
