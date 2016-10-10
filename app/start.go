@@ -11,7 +11,7 @@ type App struct {
 
 func (app *App)Run(){
 
-	app.Framework.Config.IsDevelopment = true
+	app.Framework.Config.IsDevelopment = false
 
 	// set template engine
 	app.SetTemplateEngine()
