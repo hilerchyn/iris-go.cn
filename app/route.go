@@ -26,7 +26,7 @@ func (app *App) SetRoute(){
 
 		path := app.DefaultConfig.Markdown +"/"+ file
 
-		if !utils.DirectoryExists(path){
+		if !utils.Exists(path){
 			c.RedirectTo("/gitbook")
 			return
 		}
